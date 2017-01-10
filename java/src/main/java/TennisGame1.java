@@ -37,15 +37,11 @@ public class TennisGame1 implements TennisGame {
     }
 
 	private String getScoreForNormalGame() {
-		String score="";
-		int tempScore=0;
-		for (int i=1; i<3; i++)
-		{
-		    if (i==1) tempScore = firstPlayerScore;
-		    else { score+="-"; tempScore = secondPlayerScore;}
-		    score+=getScore(tempScore).name();
-		}
-		return score;
+		return new StringBuilder()
+				.append(getScore(firstPlayerScore))
+				.append("-")
+				.append(getScore(secondPlayerScore))
+				.toString();		
 	}
 
 	private String getScoreForLongerGame() {
