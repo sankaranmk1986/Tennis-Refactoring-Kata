@@ -11,20 +11,25 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
+        if(firstPlayer.getName().equalsIgnoreCase(playerName)){
            firstPlayer.addScore();
-        else
-            secondPlayer.addScore();
+        }else{
+           secondPlayer.addScore();
+        }
     }
 
     public String getScore() {
         if (firstPlayer.isScoreEqual(secondPlayer)){
             return getScoreIfEqual();
-        }else if (firstPlayer.isLongerGame() || secondPlayer.isLongerGame()){
+        }else if (isLongerGame()){
             return getScoreForLongerGame();
         }
         return getScoreForNormalGame();
     }
+
+	private boolean isLongerGame() {
+		return firstPlayer.isLongerGame() || secondPlayer.isLongerGame();
+	}
 
 	private String getScoreForNormalGame() {
 		return new StringBuilder()
