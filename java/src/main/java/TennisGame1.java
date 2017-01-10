@@ -1,3 +1,4 @@
+import static java.util.Arrays.asList;
 
 public class TennisGame1 implements TennisGame {
     
@@ -35,7 +36,7 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-	public String getScoreForNormalGame() {
+	private String getScoreForNormalGame() {
 		String score="";
 		int tempScore=0;
 		for (int i=1; i<3; i++)
@@ -61,7 +62,7 @@ public class TennisGame1 implements TennisGame {
 		return score;
 	}
 
-	public String getScoreForLongerGame() {
+	private String getScoreForLongerGame() {
 		String score;
 		int minusResult = firstPlayerScore-secondPlayerScore;
 		if (minusResult==1) score ="Advantage player1";
@@ -71,24 +72,15 @@ public class TennisGame1 implements TennisGame {
 		return score;
 	}
 
-	public String getScoreIfEqual() {
-		String score;
-		switch (firstPlayerScore)
-		{
-		    case 0:
-		            score = "Love-All";
-		        break;
-		    case 1:
-		            score = "Fifteen-All";
-		        break;
-		    case 2:
-		            score = "Thirty-All";
-		        break;
-		    default:
-		            score = "Deuce";
-		        break;
-		    
-		}
-		return score;
+	private String getScoreIfEqual() {		
+		return asList(Score.values()).stream()
+				.filter(score -> score.getScore() == getPlayerScoreIfEqual())
+				.findFirst()
+				.get()
+				.getScoreIfEquals();
+	}
+	
+	private int getPlayerScoreIfEqual(){
+		return firstPlayerScore > 3? 3: firstPlayerScore;
 	}
 }
