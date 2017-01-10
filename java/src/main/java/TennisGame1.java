@@ -19,11 +19,11 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score;
-        if (firstPlayer.getScore()==secondPlayer.getScore())
+        if (firstPlayer.isScoreEqual(secondPlayer))
         {
             score = getScoreIfEqual();
         }
-        else if (firstPlayer.getScore()>=4 || secondPlayer.getScore()>=4)
+        else if (firstPlayer.isLongerGame() || secondPlayer.isLongerGame())
         {
             score = getScoreForLongerGame();
         }
