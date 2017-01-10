@@ -43,13 +43,18 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	private String getScoreForLongerGame() {
-		String score;
-		int minusResult = firstPlayer.getScore()-secondPlayer.getScore();
-		if (minusResult==1) score ="Advantage player1";
-		else if (minusResult ==-1) score ="Advantage player2";
-		else if (minusResult>=2) score = "Win for player1";
-		else score ="Win for player2";
-		return score;
+		if(firstPlayer.isLeadingWith(secondPlayer)){
+			return getTextForScoreDifference(firstPlayer.leadBy(secondPlayer),firstPlayer.getName());
+		}else{
+			return getTextForScoreDifference(secondPlayer.leadBy(firstPlayer),secondPlayer.getName());
+		}
+	}
+	
+	private String getTextForScoreDifference(int scoreDifference, String leadingPlayerName){
+		if(scoreDifference == 1){
+			return "Advantage "+leadingPlayerName;
+		}
+		return "Win for "+leadingPlayerName;
 	}
 
 	private String getScoreIfEqual() {	

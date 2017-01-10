@@ -23,4 +23,11 @@ public class Player {
 		return score > 3? 3: score;
 	}
 
+   public int leadBy(Player opponent){
+	   return score - opponent.getScore();
+   }
+   
+   public boolean isLeadingWith(Player opponent){
+	   return score > opponent.getScore();
+   }
 }
