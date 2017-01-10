@@ -2,30 +2,28 @@ import static java.util.Arrays.asList;
 
 public class TennisGame1 implements TennisGame {
     
-    private int firstPlayerScore = 0;
-    private int secondPlayerScore = 0;
-    private String firstPlayerName;
-    private String secondPlayerName;
+    private Player firstPlayer;
+    private Player secondPlayer;
 
     public TennisGame1(String firstPlayerName, String secondPlayerName) {
-        this.firstPlayerName = firstPlayerName;
-        this.secondPlayerName = secondPlayerName;
+        this.firstPlayer = new Player(firstPlayerName);
+        this.secondPlayer = new Player(secondPlayerName);
     }
 
     public void wonPoint(String playerName) {
         if (playerName == "player1")
-            firstPlayerScore += 1;
+           firstPlayer.addScore();
         else
-            secondPlayerScore += 1;
+            secondPlayer.addScore();
     }
 
     public String getScore() {
         String score;
-        if (firstPlayerScore==secondPlayerScore)
+        if (firstPlayer.getScore()==secondPlayer.getScore())
         {
             score = getScoreIfEqual();
         }
-        else if (firstPlayerScore>=4 || secondPlayerScore>=4)
+        else if (firstPlayer.getScore()>=4 || secondPlayer.getScore()>=4)
         {
             score = getScoreForLongerGame();
         }
@@ -38,15 +36,15 @@ public class TennisGame1 implements TennisGame {
 
 	private String getScoreForNormalGame() {
 		return new StringBuilder()
-				.append(getScore(firstPlayerScore))
+				.append(getScore(firstPlayer.getScore()))
 				.append("-")
-				.append(getScore(secondPlayerScore))
+				.append(getScore(secondPlayer.getScore()))
 				.toString();		
 	}
 
 	private String getScoreForLongerGame() {
 		String score;
-		int minusResult = firstPlayerScore-secondPlayerScore;
+		int minusResult = firstPlayer.getScore()-secondPlayer.getScore();
 		if (minusResult==1) score ="Advantage player1";
 		else if (minusResult ==-1) score ="Advantage player2";
 		else if (minusResult>=2) score = "Win for player1";
@@ -55,7 +53,7 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	private String getScoreIfEqual() {	
-		return getScore(getPlayerScoreIfEqual()).getScoreIfEquals();
+		return getScore(firstPlayer.getScoreIfEqual()).getScoreIfEquals();
 	}
 
 	private Score getScore(int score) {
@@ -63,9 +61,5 @@ public class TennisGame1 implements TennisGame {
 				.filter(scoreEnum -> scoreEnum.getScore() == score)
 				.findFirst()
 				.get();
-	}
-	
-	private int getPlayerScoreIfEqual(){
-		return firstPlayerScore > 3? 3: firstPlayerScore;
 	}
 }
