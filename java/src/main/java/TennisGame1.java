@@ -43,21 +43,7 @@ public class TennisGame1 implements TennisGame {
 		{
 		    if (i==1) tempScore = firstPlayerScore;
 		    else { score+="-"; tempScore = secondPlayerScore;}
-		    switch(tempScore)
-		    {
-		        case 0:
-		            score+="Love";
-		            break;
-		        case 1:
-		            score+="Fifteen";
-		            break;
-		        case 2:
-		            score+="Thirty";
-		            break;
-		        case 3:
-		            score+="Forty";
-		            break;
-		    }
+		    score+=getScore(tempScore).name();
 		}
 		return score;
 	}
@@ -72,12 +58,15 @@ public class TennisGame1 implements TennisGame {
 		return score;
 	}
 
-	private String getScoreIfEqual() {		
+	private String getScoreIfEqual() {	
+		return getScore(getPlayerScoreIfEqual()).getScoreIfEquals();
+	}
+
+	private Score getScore(int score) {
 		return asList(Score.values()).stream()
-				.filter(score -> score.getScore() == getPlayerScoreIfEqual())
+				.filter(scoreEnum -> scoreEnum.getScore() == score)
 				.findFirst()
-				.get()
-				.getScoreIfEquals();
+				.get();
 	}
 	
 	private int getPlayerScoreIfEqual(){
