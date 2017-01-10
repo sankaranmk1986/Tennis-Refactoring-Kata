@@ -18,20 +18,12 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score;
-        if (firstPlayer.isScoreEqual(secondPlayer))
-        {
-            score = getScoreIfEqual();
+        if (firstPlayer.isScoreEqual(secondPlayer)){
+            return getScoreIfEqual();
+        }else if (firstPlayer.isLongerGame() || secondPlayer.isLongerGame()){
+            return getScoreForLongerGame();
         }
-        else if (firstPlayer.isLongerGame() || secondPlayer.isLongerGame())
-        {
-            score = getScoreForLongerGame();
-        }
-        else
-        {
-            score = getScoreForNormalGame();
-        }
-        return score;
+        return getScoreForNormalGame();
     }
 
 	private String getScoreForNormalGame() {
