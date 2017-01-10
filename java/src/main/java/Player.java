@@ -1,3 +1,4 @@
+import static java.util.Arrays.asList;
 
 public class Player {
 	private String name;
@@ -38,4 +39,12 @@ public class Player {
 	public boolean isLongerGame() {
 		return score>=4;
 	}
+	
+	public String getScoreInWords(){
+		return asList(Score.values()).stream()
+				.filter(scoreEnum -> scoreEnum.getScore() == score)
+				.findFirst()
+				.get().name();
+	}
+	
 }

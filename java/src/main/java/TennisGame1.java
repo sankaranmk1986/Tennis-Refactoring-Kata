@@ -33,9 +33,9 @@ public class TennisGame1 implements TennisGame {
 
 	private String getScoreForNormalGame() {
 		return new StringBuilder()
-				.append(getScore(firstPlayer.getScore()))
+				.append(firstPlayer.getScoreInWords())
 				.append("-")
-				.append(getScore(secondPlayer.getScore()))
+				.append(secondPlayer.getScoreInWords())
 				.toString();		
 	}
 
@@ -55,13 +55,11 @@ public class TennisGame1 implements TennisGame {
 	}
 
 	private String getScoreIfEqual() {	
-		return getScore(firstPlayer.getScoreIfEqual()).getScoreIfEquals();
-	}
-
-	private Score getScore(int score) {
 		return asList(Score.values()).stream()
-				.filter(scoreEnum -> scoreEnum.getScore() == score)
+				.filter(scoreEnum -> scoreEnum.getScore() == firstPlayer.getScoreIfEqual())
 				.findFirst()
-				.get();
+				.get()
+				.getScoreIfEquals();
 	}
+	
 }
