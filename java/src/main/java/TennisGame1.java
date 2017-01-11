@@ -1,13 +1,13 @@
-import static java.util.Arrays.asList;
-
 public class TennisGame1 implements TennisGame {
     
     private Player firstPlayer;
     private Player secondPlayer;
+    private ScoreCalculator scoreCalculator;
 
     public TennisGame1(String firstPlayerName, String secondPlayerName) {
         this.firstPlayer = new Player(firstPlayerName);
         this.secondPlayer = new Player(secondPlayerName);
+        this.scoreCalculator=new ScoreCalculator();
     }
 
     public void wonPoint(String playerName) {
@@ -19,47 +19,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        if (firstPlayer.isScoreEqual(secondPlayer)){
-            return getScoreIfEqual();
-        }else if (isLongerGame()){
-            return getScoreForLongerGame();
-        }
-        return getScoreForNormalGame();
+    	return scoreCalculator.getScoreInWords(firstPlayer, secondPlayer);
     }
-
-	private boolean isLongerGame() {
-		return firstPlayer.isLongerGame() || secondPlayer.isLongerGame();
-	}
-
-	private String getScoreForNormalGame() {
-		return new StringBuilder()
-				.append(firstPlayer.getScoreInWords())
-				.append("-")
-				.append(secondPlayer.getScoreInWords())
-				.toString();		
-	}
-
-	private String getScoreForLongerGame() {
-		if(firstPlayer.isLeadingWith(secondPlayer)){
-			return getTextForScoreDifference(firstPlayer.leadBy(secondPlayer),firstPlayer.getName());
-		}else{
-			return getTextForScoreDifference(secondPlayer.leadBy(firstPlayer),secondPlayer.getName());
-		}
-	}
-	
-	private String getTextForScoreDifference(int scoreDifference, String leadingPlayerName){
-		if(scoreDifference == 1){
-			return "Advantage "+leadingPlayerName;
-		}
-		return "Win for "+leadingPlayerName;
-	}
-
-	private String getScoreIfEqual() {	
-		return asList(Score.values()).stream()
-				.filter(scoreEnum -> scoreEnum.getScore() == firstPlayer.getScoreIfEqual())
-				.findFirst()
-				.get()
-				.getScoreIfEquals();
-	}
 	
 }
